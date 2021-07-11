@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "minimum_chrome_version": "28",
-  "name": "Google Search Keyboard Shortcuts",
-  "description": "Adds keyboard shortcuts/hotkeys back to Google search results",
+  "name": "Google search keyboard navigation",
+  "description": "Adds keyboard shortcuts/hotkeys to Google search results",
   "version": "1.1.15",
   "icons": {
     "16": "img/icon16.png",
@@ -10,7 +10,11 @@
     "48": "img/icon48.png",
     "128": "img/icon128.png"
   },
-  "author": "Jacob Chafik <jacobthedeveloper@gmail.com>",
+  "author": "Matthias Kunnen",
+  "developer": {
+    "name": "Matthias Kunnen",
+    "url": "https://github.com/MatthiasKunnen/"
+  },
   "options_ui": {
       "page": "options.html",
       "chrome_style": true
