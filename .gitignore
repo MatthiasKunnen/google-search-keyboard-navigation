@@ -1,5 +1,32 @@
-# Build
-package.zip
+.idea/
+node_modules
+/local
+*.local.*
+*.local
+.eslintcache
+*.log
+
+# Distribution / packaging
+build/
+dist/
+lib/
+out-tsc/
+
+# Unit test / coverage reports
+htmlcov/
+coverage/
+.coverage
+.coverage.*
+.cache
+coverage.xml
+*.cover
+
+# Yarn https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
+.pnp.*
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
 
 # System Files
 .DS_Store
+Thumbs.db
