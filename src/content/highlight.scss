@@ -1,0 +1,28 @@
+.activeSearchResultContainer {
+    border-left: 3px solid #2586fc !important;
+    transform: translate(-3px, 0) !important;
+
+    a {
+        outline: 0;
+    }
+
+    & > div {
+        position: relative;
+    }
+
+    img {
+        border-top: 3px solid #2586fc !important;
+    }
+}
+
+div.g.activeSearchResultContainer,
+li.ads-ad li.activeSearchResultContainer,
+div.gs_r.activeSearchResultContainer {
+    padding-left: 8px;
+    margin-left: -11px;
+    transform: none !important;
+}
+
+div[role="navigation"] table a:focus {
+    text-decoration: underline;
+}

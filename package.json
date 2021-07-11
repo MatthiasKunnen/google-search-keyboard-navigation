@@ -1,0 +1,31 @@
+{
+    "name": "google-search-keyboard-navigation",
+    "version": "1.0.0",
+    "description": "Adds keyboard navigation to Google Search",
+    "repository": "git@github.com:MatthiasKunnen/google-search-keyboard-navigation.git",
+    "author": "Matthias Kunnen <matthias.kunnen@gmail.com>",
+    "license": "GPL-3.0-or-later",
+    "private": true,
+    "scripts": {
+        "build": "run-s \"build:*\"",
+        "build:clean": "rm -rf dist",
+        "build:content": "parcel build \"src/content/{content.ts,*.scss}\"",
+        "build:options": "parcel build --public-url /dist/ \"src/options/options.html\"",
+        "build:finished": "date --iso-8601=seconds > build-finished",
+        "start": "run-p \"start:*\"",
+        "start:build": "nodemon -e '*' -w ./src -w ./node_modules -x yarn run build",
+        "start:firefox": "web-ext run --firefox-profile ./.profiles/firefox --profile-create-if-missing --keep-profile-changes --watch-file build-finished manifest.json",
+        "test": "tsc -p tsconfig.strict.json"
+    },
+    "dependencies": {
+        "@parcel/transformer-sass": "2.0.0-beta.3.1",
+        "npm-run-all": "^4.1.5",
+        "parcel": "^2.0.0-beta.3.1",
+        "sass": "^1.35.2",
+        "typescript": "^4.3.5"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.12",
+        "web-ext": "^6.2.0"
+    }
+}

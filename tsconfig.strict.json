@@ -1,0 +1,11 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "allowUnreachableCode": false,
+        "noEmit": true,
+        "noUnusedLocals": true
+    },
+    "include": [
+        "src/**/*.ts"
+    ]
+}

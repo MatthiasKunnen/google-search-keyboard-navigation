@@ -1,6 +1,7 @@
-(function() {
-'use strict';
+import {navigation} from '../util/navigation';
 
+(function() {
+    'use strict';
     var extOptions = {};
 
     function displayDialog() {
@@ -34,24 +35,23 @@
     }
 
     function restoreDefaults() {
-        extOptions = shortcuts.defaultOptions;
+        extOptions = navigation.defaultOptions;
         persistOptions();
     }
 
     function persistOptions() {
-        shortcuts.saveOptions(extOptions, function () {
+        navigation.saveOptions(extOptions, function () {
             loadFormOptions();
             displayDialog();
         });
     }
 
-// Load options
-    shortcuts.loadOptions(function (options) {
+    // Load options
+    navigation.loadOptions(function (options) {
         extOptions = options;
         loadFormOptions();
 
         document.getElementById('save').addEventListener('click', saveOptions);
         document.getElementById('restore').addEventListener('click', restoreDefaults);
     });
-
 })();

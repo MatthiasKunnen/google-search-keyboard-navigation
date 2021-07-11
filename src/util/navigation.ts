@@ -1,55 +1,54 @@
-// Globals
-var shortcuts = {
-defaultOptions: {
-    // Style selected search result
-    styleSelectedSimple: true,
+export class Navigation {
+    defaultOptions = {
+        // Style selected search result
+        styleSelectedSimple: true,
 
-    styleSelectedFancy: false,
+        styleSelectedFancy: false,
 
-    // Activate search box. Boolean (activate when any printable key is pressed) or keyCode
-    activateSearch: true,
+        // Activate search box. Boolean (activate when any printable key is pressed) or keyCode
+        activateSearch: true,
 
-    // Automatically select the first search reult.
-    autoselectFirst: false,
+        // Automatically select the first search reult.
+        autoselectFirst: false,
 
-    // Navigate between results using
+        // Navigate between results using
 
-    // Next = Tab; Previous = Shift + TAB
-    navigateWithTabs: true,
+        // Next = Tab; Previous = Shift + TAB
+        navigateWithTabs: true,
 
-    // Next = Down; Previous = Up
-    navigateWithArrows: true,
+        // Next = Down; Previous = Up
+        navigateWithArrows: true,
 
-    // Next = J; Previous = K [WARNING: Conflicts with activateSearch. This takes precedence.]
-    navigateWithJK: false,
+        // Next = J; Previous = K [WARNING: Conflicts with activateSearch. This takes precedence.]
+        navigateWithJK: false,
 
-    // Esc = select all text in searchbox
-    selectTextInSearchbox: false,
-},
+        // Esc = select all text in searchbox
+        selectTextInSearchbox: false,
+    };
 
-    focusIndex: -1,
+    focusIndex = -1;
 
-    inputElementIds: ['cwtltblr' /* Google Calculator Widget */],
-    inputElementTypes: ['text', 'number', 'textarea'],
+    inputElementIds = ['cwtltblr'];
+    inputElementTypes = ['text', 'number', 'textarea', 'T'];
 
-    visibleResultsQuerySelector: 'h3 a, #search a[data-ved][ping]',
-    resultContainerQuerySelector: 'div.gs_r, div.g, li, td',
-    navigationContainerQuerySelector: 'div[role="navigation"] table',
-    navigationLinksAndSuggestedSearchesQuerySelector: 'div[role="navigation"] table a, #botstuff a',
+    visibleResultsQuerySelector = 'h3 a, #search a[data-ved][ping]';
+    resultContainerQuerySelector = 'div.gs_r, div.g, li, td';
+    navigationContainerQuerySelector = 'div[role="navigation"] table';
+    navigationLinksAndSuggestedSearchesQuerySelector = 'div[role="navigation"] table a, #botstuff a';
 
-    saveOptions: function (options, callback) {
+    saveOptions(options, callback) {
         chrome.storage.sync.set(options, callback);
-    },
+    }
 
-    loadOptions: function (callback) {
+    loadOptions(callback) {
         chrome.storage.sync.get(this.defaultOptions, callback);
-    },
+    }
 
-    isElementVisible: function (element) {
+    isElementVisible(element) {
         return element && (element.offsetWidth > 0 || element.offsetHeight > 0) && window.getComputedStyle(element, null).getPropertyValue('visibility') != 'hidden';
-    },
+    }
 
-    getVisibleResults: function () {
+    getVisibleResults() {
         var containers = [];
         return [
             // Main items
@@ -63,23 +62,24 @@ defaultOptions: {
                 focusElement: element,
             })),
         ].filter(target => target.container !== null && this.isElementVisible(target.focusElement));
-    },
+    }
 
-    hasModifierKey: function (e) {
+    hasModifierKey(e) {
         return e.shiftKey || e.altKey || e.ctrlKey || e.metaKey;
-    },
+    }
+
 
     /**
      * Determine if an input element is focused
      */
-    isInputActive: function () {
+    isInputActive() {
         var activeElement = document.activeElement;
         return activeElement != null && (activeElement.nodeName == 'INPUT' || this.inputElementTypes.includes(activeElement.type) || this.inputElementIds.includes(activeElement.id));
-    },
+    }
 
     // -- Highlight the active result
     // Results without valid containers will be removed.
-    findContainer: function (link, containers) {
+    findContainer(link, containers) {
         var container = link.closest(this.resultContainerQuerySelector);
 
         // Only return valid, unused containers
@@ -89,11 +89,11 @@ defaultOptions: {
         }
 
         return null;
-    },
+    }
 
     // Add custom styling for the selected result (does not apply to footer navigation links)
-    addResultHighlight: function (target) {
-    // Don't proceed if the result is already highlighted or if we're dealing with footer navigation links
+    addResultHighlight(target) {
+        // Don't proceed if the result is already highlighted or if we're dealing with footer navigation links
         if (target.container.classList.contains('activeSearchResultContainer') || target.focusElement.closest(this.navigationContainerQuerySelector) != null) {
             return;
         }
@@ -108,9 +108,9 @@ defaultOptions: {
         };
 
         target.focusElement.addEventListener('blur', removeResultHighlight);
-    },
+    }
 
-    focusResult: function (offset) {
+    focusResult(offset) {
         var results = this.getVisibleResults();
 
         if (results.length <= 0) {
@@ -134,5 +134,7 @@ defaultOptions: {
 
         target.focusElement.focus();
         this.addResultHighlight(target);
-    },
-};
+    }
+}
+
+export const navigation = new Navigation();

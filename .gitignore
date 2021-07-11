@@ -3,8 +3,13 @@ node_modules
 /local
 *.local.*
 *.local
-.eslintcache
 *.log
+/.profiles
+build-finished
+
+# Cache
+.eslintcache
+.parcel-cache
 
 # Distribution / packaging
 build/
