@@ -35,7 +35,7 @@ import {navigation} from '../util/navigation';
     }
 
     function restoreDefaults() {
-        extOptions = navigation.defaultOptions;
+        extOptions = navigation.getDefaultOptions();
         persistOptions();
     }
 

@@ -1,31 +1,4 @@
 export class Navigation {
-    defaultOptions = {
-        // Style selected search result
-        styleSelectedSimple: true,
-
-        styleSelectedFancy: false,
-
-        // Activate search box. Boolean (activate when any printable key is pressed) or keyCode
-        activateSearch: true,
-
-        // Automatically select the first search reult.
-        autoselectFirst: false,
-
-        // Navigate between results using
-
-        // Next = Tab; Previous = Shift + TAB
-        navigateWithTabs: true,
-
-        // Next = Down; Previous = Up
-        navigateWithArrows: true,
-
-        // Next = J; Previous = K [WARNING: Conflicts with activateSearch. This takes precedence.]
-        navigateWithJK: false,
-
-        // Esc = select all text in searchbox
-        selectTextInSearchbox: false,
-    };
-
     focusIndex = -1;
 
     inputElementIds = ['cwtltblr'];
@@ -41,7 +14,36 @@ export class Navigation {
     }
 
     loadOptions(callback) {
-        chrome.storage.sync.get(this.defaultOptions, callback);
+        chrome.storage.sync.get(this.getDefaultOptions(), callback);
+    }
+
+    getDefaultOptions() {
+        return {
+            // Style selected search result
+            styleSelectedSimple: true,
+
+            styleSelectedFancy: false,
+
+            // Activate search box. Boolean (activate when any printable key is pressed) or keyCode
+            activateSearch: true,
+
+            // Automatically select the first search reult.
+            autoselectFirst: false,
+
+            // Navigate between results using
+
+            // Next = Tab; Previous = Shift + TAB
+            navigateWithTabs: true,
+
+            // Next = Down; Previous = Up
+            navigateWithArrows: true,
+
+            // Next = J; Previous = K [WARNING: Conflicts with activateSearch. This takes precedence.]
+            navigateWithJK: false,
+
+            // Esc = select all text in searchbox
+            selectTextInSearchbox: false,
+        };
     }
 
     isElementVisible(element) {
