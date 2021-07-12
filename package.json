@@ -15,6 +15,7 @@
         "start": "run-p \"start:*\"",
         "start:build": "nodemon -e '*' -w ./src -w ./node_modules -x yarn run build",
         "start:firefox": "web-ext run --firefox-profile ./.profiles/firefox --profile-create-if-missing --keep-profile-changes --watch-file build-finished manifest.json",
+        "lint": "eslint \"src/**\"",
         "test": "tsc -p tsconfig.strict.json"
     },
     "dependencies": {
@@ -26,6 +27,7 @@
         "typescript": "^4.3.5"
     },
     "devDependencies": {
+        "@matthiaskunnen/eslint-config-typescript": "^3.2.0",
         "nodemon": "^2.0.12",
         "web-ext": "^6.2.0"
     }
