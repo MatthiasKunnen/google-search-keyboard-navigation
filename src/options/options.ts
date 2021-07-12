@@ -1,7 +1,6 @@
 import {asyncWrapper} from '../util/async';
 import {navigation, Options} from '../util/navigation';
 
-'use strict';
 function displaySaveSuccess() {
     document.getElementById('save-success').style.marginTop = '0px';
     setTimeout(function () {
