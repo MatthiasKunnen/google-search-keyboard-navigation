@@ -22,3 +22,9 @@ overrides:
       project: tsconfig.lint.json
     extends:
       - '@matthiaskunnen/eslint-config-typescript'
+    rules:
+      no-console:
+        - error
+        - allow:
+            - error
+            - warn
