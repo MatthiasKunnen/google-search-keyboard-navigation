@@ -20,12 +20,6 @@ export interface Options {
      * Next = Tab; Previous = Shift + TAB
      */
     navigateWithTabs: boolean;
-
-    /**
-     * Esc = select all text in searchbox
-     */
-    selectTextInSearchbox: boolean;
-
 }
 
 export class Navigation {
@@ -54,7 +48,6 @@ export class Navigation {
             navigateWithArrows: true,
             navigateWithJK: false,
             navigateWithTabs: true,
-            selectTextInSearchbox: false,
         };
     }
 

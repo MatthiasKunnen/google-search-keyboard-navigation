@@ -15,15 +15,6 @@ import {navigation} from '../util/navigation';
     // Load options
     const options = await navigation.loadOptions();
 
-    const searchbox = document.querySelector(
-        'form[role="search"] input[type="text"]:nth-of-type(1)',
-    );
-
-    if (!(searchbox instanceof HTMLInputElement)) {
-        console.error('Search input not found!');
-        return;
-    }
-
     window.addEventListener('keydown', (e) => {
         const isInputOrModifierActive = navigation.isInputActive() || navigation.hasModifierKey(e);
         const shouldNavigateNext =
@@ -36,18 +27,10 @@ import {navigation} from '../util/navigation';
                 || (options.navigateWithTabs && e.keyCode === KEYS.TAB && e.shiftKey)
                 || (options.navigateWithJK && e.keyCode === KEYS.K && !isInputOrModifierActive);
 
-        const shouldActivateSearchAndHighlightText = !isInputOrModifierActive
-            && options.selectTextInSearchbox
-            && e.keyCode === KEYS.ESC;
-
         if (shouldNavigateNext || shouldNavigateBack) {
             e.preventDefault();
             e.stopPropagation();
             navigation.focusResult(shouldNavigateNext ? 1 : -1);
-        } else if (shouldActivateSearchAndHighlightText) {
-            window.scrollTo(0, 0);
-            searchbox.select();
-            searchbox.focus();
         }
     });
 

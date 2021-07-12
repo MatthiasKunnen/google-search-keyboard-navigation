@@ -13,7 +13,6 @@ const checkboxes = [
     'navigateWithArrows',
     'navigateWithJK',
     'navigateWithTabs',
-    'selectTextInSearchbox',
 ] as const;
 
 let inputs: Map<string, HTMLInputElement> | undefined;
