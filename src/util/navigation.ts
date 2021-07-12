@@ -92,7 +92,6 @@ export class Navigation {
             || this.inputElementIds.includes(activeElement.id);
     }
 
-    // -- Highlight the active result
     // Results without valid containers will be removed.
     findContainer(link, containers) {
         const container = link.closest(this.resultContainerQuerySelector);

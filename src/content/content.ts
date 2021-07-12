@@ -9,10 +9,7 @@ import {navigation} from '../util/navigation';
         return;
     }
 
-    // Globals
     const KEYS = {UP: 38, DOWN: 40, TAB: 9, J: 74, K: 75, SLASH: 191, ESC: 27};
-
-    // Load options
     const options = await navigation.loadOptions();
 
     window.addEventListener('keydown', (e) => {
@@ -34,7 +31,6 @@ import {navigation} from '../util/navigation';
         }
     });
 
-    // Auto select the first search result
     if (options.autoselectFirst) {
         navigation.focusResult(1);
     }
