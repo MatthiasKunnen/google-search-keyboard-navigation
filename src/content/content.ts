@@ -11,20 +11,19 @@ import {navigation} from '../util/navigation';
         return;
     }
 
-    const KEYS = {UP: 38, DOWN: 40, TAB: 9, J: 74, K: 75, SLASH: 191, ESC: 27};
     const config = await configHandler.loadConfig();
 
     window.addEventListener('keydown', (e) => {
         const isInputOrModifierActive = eventTargetsInput(e) || eventHasModifierKey(e);
         const shouldNavigateNext =
-            (config.navigateWithArrows && e.keyCode === KEYS.DOWN && !isInputOrModifierActive)
-                || (config.navigateWithTabs && e.keyCode === KEYS.TAB && !e.shiftKey)
-                || (config.navigateWithJK && e.keyCode === KEYS.J && !isInputOrModifierActive);
+            (config.navigateWithArrows && e.key === 'ArrowDown' && !isInputOrModifierActive)
+                || (config.navigateWithTabs && e.key === 'Tab' && !e.shiftKey)
+                || (config.navigateWithJK && e.key === 'j' && !isInputOrModifierActive);
 
         const shouldNavigateBack =
-            (config.navigateWithArrows && e.keyCode === KEYS.UP && !isInputOrModifierActive)
-                || (config.navigateWithTabs && e.keyCode === KEYS.TAB && e.shiftKey)
-                || (config.navigateWithJK && e.keyCode === KEYS.K && !isInputOrModifierActive);
+            (config.navigateWithArrows && e.key === 'ArrowUp' && !isInputOrModifierActive)
+                || (config.navigateWithTabs && e.key === 'Tab' && e.shiftKey)
+                || (config.navigateWithJK && e.key === 'k' && !isInputOrModifierActive);
 
         if (shouldNavigateNext || shouldNavigateBack) {
             e.preventDefault();
