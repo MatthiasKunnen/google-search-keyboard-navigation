@@ -8,12 +8,11 @@ First version after fork. The following changes have been made:
   This helped detect several issues and will prevent similar ones in the future.
 * Replaced usage of deprecated APIs
 * Modernized code  
-  The existing code used outdated and pre-ES2015 approaches. The new code should be easier to read,
-  maintain, and test.
+  The existing code used outdated and pre-ES2015 practices. The new code should be easier to read, maintain, and test.
 * Eliminated dead code
-* Improved and documented development
-* Configure CI
+* Improved development ease and wrote a guide on how to develop the extension
 * Removed features that are provided by Google Search
 * Removed option to add an arrow to the search result title  
   The arrow works on text only and not on the various richer results in Google Search.
 * Provide dark theme for preferences
+* Configure CI
