@@ -1,3 +1,4 @@
+import {configHandler} from '../util/config';
 import {eventHasModifierKey, eventTargetsInput} from '../util/event.utils';
 import {navigation} from '../util/navigation';
 
@@ -11,19 +12,19 @@ import {navigation} from '../util/navigation';
     }
 
     const KEYS = {UP: 38, DOWN: 40, TAB: 9, J: 74, K: 75, SLASH: 191, ESC: 27};
-    const options = await navigation.loadOptions();
+    const config = await configHandler.loadConfig();
 
     window.addEventListener('keydown', (e) => {
         const isInputOrModifierActive = eventTargetsInput(e) || eventHasModifierKey(e);
         const shouldNavigateNext =
-            (options.navigateWithArrows && e.keyCode === KEYS.DOWN && !isInputOrModifierActive)
-                || (options.navigateWithTabs && e.keyCode === KEYS.TAB && !e.shiftKey)
-                || (options.navigateWithJK && e.keyCode === KEYS.J && !isInputOrModifierActive);
+            (config.navigateWithArrows && e.keyCode === KEYS.DOWN && !isInputOrModifierActive)
+                || (config.navigateWithTabs && e.keyCode === KEYS.TAB && !e.shiftKey)
+                || (config.navigateWithJK && e.keyCode === KEYS.J && !isInputOrModifierActive);
 
         const shouldNavigateBack =
-            (options.navigateWithArrows && e.keyCode === KEYS.UP && !isInputOrModifierActive)
-                || (options.navigateWithTabs && e.keyCode === KEYS.TAB && e.shiftKey)
-                || (options.navigateWithJK && e.keyCode === KEYS.K && !isInputOrModifierActive);
+            (config.navigateWithArrows && e.keyCode === KEYS.UP && !isInputOrModifierActive)
+                || (config.navigateWithTabs && e.keyCode === KEYS.TAB && e.shiftKey)
+                || (config.navigateWithJK && e.keyCode === KEYS.K && !isInputOrModifierActive);
 
         if (shouldNavigateNext || shouldNavigateBack) {
             e.preventDefault();
@@ -32,7 +33,7 @@ import {navigation} from '../util/navigation';
         }
     });
 
-    if (options.autoselectFirst) {
+    if (config.autoselectFirst) {
         navigation.focusResult(1);
     }
 })().catch(console.error);

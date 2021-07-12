@@ -1,5 +1,5 @@
 import {asyncWrapper} from '../util/async';
-import {navigation, Options} from '../util/navigation';
+import {Config, configHandler} from '../util/config';
 
 function displaySaveSuccess() {
     const successNotification = document.getElementById('save-success');
@@ -29,35 +29,31 @@ function loadInputs() {
     return inputs;
 }
 
-function loadFormOptions(options: Options) {
+function loadForm(config: Config) {
     loadInputs().forEach((input, key) => {
-        input.checked = options[key];
+        input.checked = config[key];
     });
 }
 
-async function saveOptions() {
-    const options: Partial<Options> = {};
+async function persistForm() {
+    const config: Partial<Config> = {};
 
     loadInputs().forEach((input, key) => {
-        options[key] = input.checked;
+        config[key] = input.checked;
     });
 
-    await persistOptions(options as Options);
-}
-
-async function restoreDefaults() {
-    await persistOptions(navigation.getDefaultOptions());
-}
-
-async function persistOptions(options: Options) {
-    await navigation.saveOptions(options);
+    await configHandler.saveConfig(config as Config);
     displaySaveSuccess();
 }
 
-(async () => {
-    const options = await navigation.loadOptions();
-    loadFormOptions(options);
+async function restoreDefaults() {
+    loadForm(configHandler.getDefaultConfig());
+}
 
-    document.getElementById('save')!.addEventListener('click', asyncWrapper(saveOptions));
+(async () => {
+    const config = await configHandler.loadConfig();
+    loadForm(config);
+
+    document.getElementById('save')!.addEventListener('click', asyncWrapper(persistForm));
     document.getElementById('restore')!.addEventListener('click', asyncWrapper(restoreDefaults));
 })().catch(console.error);

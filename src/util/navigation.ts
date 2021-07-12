@@ -1,27 +1,3 @@
-export interface Options {
-
-    /**
-     * Automatically select the first search reult.
-     */
-    autoselectFirst: boolean;
-
-    /**
-     * Next = Down; Previous = Up
-     */
-    navigateWithArrows: boolean;
-
-    /**
-     * Next = J; Previous = K
-     */
-    navigateWithJK: boolean;
-
-    /**
-     * Navigate between results using:
-     * Next = Tab; Previous = Shift + TAB
-     */
-    navigateWithTabs: boolean;
-}
-
 interface SearchResult {
     container: HTMLElement;
     focusElement: HTMLElement;
@@ -29,23 +5,6 @@ interface SearchResult {
 
 export class Navigation {
     focusIndex = -1;
-
-    async saveOptions(options: Options) {
-        return browser.storage.sync.set(options);
-    }
-
-    async loadOptions(): Promise<Options> {
-        return browser.storage.sync.get(this.getDefaultOptions()) as Promise<Options>;
-    }
-
-    getDefaultOptions(): Options {
-        return {
-            autoselectFirst: false,
-            navigateWithArrows: true,
-            navigateWithJK: false,
-            navigateWithTabs: true,
-        };
-    }
 
     isElementVisible(element: Element | null): element is HTMLElement {
         if (!(element instanceof HTMLElement)) {
