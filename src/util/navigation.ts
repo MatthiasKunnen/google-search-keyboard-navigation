@@ -6,46 +6,6 @@ interface SearchResult {
 export class Navigation {
     focusIndex = -1;
 
-    isElementVisible(element: Element | null): element is HTMLElement {
-        if (!(element instanceof HTMLElement)) {
-            return false;
-        }
-
-        const hasOffset = element.offsetWidth > 0 || element.offsetHeight > 0;
-        const visibility = window.getComputedStyle(element, null).getPropertyValue('visibility');
-        return hasOffset && visibility !== 'hidden';
-    }
-
-    getVisibleResults(): Array<SearchResult> {
-        const mainItems = document.querySelectorAll(
-            '#search .g:not(.mnr-c) div[data-ved] > * > * > a[data-ved]:first-of-type',
-        );
-
-        const items = [
-            // Main items
-            ...Array.from(mainItems).map(element => ({
-                container: element.closest('.g'),
-                focusElement: element.closest('a'),
-            })),
-            // Advertisements
-            ...Array.from(document.querySelectorAll('.Krnil')).map(element => ({
-                container: element.closest('.cUezCb'),
-                focusElement: element.closest('a'),
-            })),
-            // Suggested searches in footer
-            ...Array.from(document.querySelectorAll('#botstuff a')).map(element => ({
-                container: element,
-                focusElement: element,
-            })),
-        ];
-
-        return items
-            .filter((target): target is SearchResult => {
-                return target.container !== null && this.isElementVisible(target.focusElement);
-            })
-            .sort((a, b) => this.documentOrderComparator(a.focusElement, b.focusElement));
-    }
-
     focusResult(offset: number) {
         const results = this.getVisibleResults();
 
@@ -85,6 +45,46 @@ export class Navigation {
         };
 
         target.focusElement.addEventListener('blur', blurHandler);
+    }
+
+    private getVisibleResults(): Array<SearchResult> {
+        const mainItems = document.querySelectorAll(
+            '#search .g:not(.mnr-c) div[data-ved] > * > * > a[data-ved]:first-of-type',
+        );
+
+        const items = [
+            // Main items
+            ...Array.from(mainItems).map(element => ({
+                container: element.closest('.g'),
+                focusElement: element.closest('a'),
+            })),
+            // Advertisements
+            ...Array.from(document.querySelectorAll('.Krnil')).map(element => ({
+                container: element.closest('.cUezCb'),
+                focusElement: element.closest('a'),
+            })),
+            // Suggested searches in footer
+            ...Array.from(document.querySelectorAll('#botstuff a')).map(element => ({
+                container: element,
+                focusElement: element,
+            })),
+        ];
+
+        return items
+            .filter((target): target is SearchResult => {
+                return target.container !== null && this.isElementVisible(target.focusElement);
+            })
+            .sort((a, b) => this.documentOrderComparator(a.focusElement, b.focusElement));
+    }
+
+    private isElementVisible(element: Element | null): element is HTMLElement {
+        if (!(element instanceof HTMLElement)) {
+            return false;
+        }
+
+        const hasOffset = element.offsetWidth > 0 || element.offsetHeight > 0;
+        const visibility = window.getComputedStyle(element, null).getPropertyValue('visibility');
+        return hasOffset && visibility !== 'hidden';
     }
 
     private documentOrderComparator(a: Element, b: Element) {
