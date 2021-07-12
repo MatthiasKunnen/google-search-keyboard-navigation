@@ -10,7 +10,7 @@ function displaySaveSuccess() {
 }
 
 const checkboxes = [
-    'autoselectFirst',
+    'autoSelectFirst',
     'navigateWithArrows',
     'navigateWithJK',
     'navigateWithTabs',

@@ -3,7 +3,7 @@ export interface Config {
     /**
      * Automatically select the first search reult.
      */
-    autoselectFirst: boolean;
+    autoSelectFirst: boolean;
 
     /**
      * Next = Down; Previous = Up
@@ -26,7 +26,7 @@ export class ConfigHandler {
 
     getDefaultConfig(): Config {
         return {
-            autoselectFirst: false,
+            autoSelectFirst: false,
             navigateWithArrows: true,
             navigateWithJK: false,
             navigateWithTabs: true,

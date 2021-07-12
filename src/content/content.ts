@@ -33,7 +33,7 @@ import {navigation} from '../util/navigation';
         }
     });
 
-    if (config.autoselectFirst) {
+    if (config.autoSelectFirst) {
         navigation.focusResult(1);
     }
 })().catch(console.error);
