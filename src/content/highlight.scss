@@ -15,9 +15,10 @@
     }
 }
 
-div.g.activeSearchResultContainer,
-li.ads-ad li.activeSearchResultContainer,
+div.g.activeSearchResultContainer, // Main results
+.cUezCb.activeSearchResultContainer, // Advertisements
 div.gs_r.activeSearchResultContainer {
+    border-radius: 0;
     padding-left: 8px;
     margin-left: -11px;
     transform: none !important;

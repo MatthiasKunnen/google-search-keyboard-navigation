@@ -22,17 +22,16 @@ export interface Options {
     navigateWithTabs: boolean;
 }
 
+interface SearchResult {
+    container: HTMLElement;
+    focusElement: HTMLElement;
+}
+
 export class Navigation {
     focusIndex = -1;
 
     inputElementIds = ['cwtltblr'];
     inputElementTypes = ['text', 'number', 'textarea', 'T'];
-
-    visibleResultsQuerySelector = 'h3 a, #search a[data-ved][ping]';
-    resultContainerQuerySelector = 'div.gs_r, div.g, li, td';
-    navigationContainerQuerySelector = 'div[role="navigation"] table';
-    navigationLinksAndSuggestedSearchesQuerySelector =
-        'div[role="navigation"] table a, #botstuff a';
 
     async saveOptions(options: Options) {
         return browser.storage.sync.set(options);
@@ -51,26 +50,44 @@ export class Navigation {
         };
     }
 
-    isElementVisible(element: HTMLElement) {
+    isElementVisible(element: Element | null): element is HTMLElement {
+        if (!(element instanceof HTMLElement)) {
+            return false;
+        }
+
         const hasOffset = element.offsetWidth > 0 || element.offsetHeight > 0;
         const visibility = window.getComputedStyle(element, null).getPropertyValue('visibility');
         return hasOffset && visibility !== 'hidden';
     }
 
-    getVisibleResults() {
-        const containers = [];
-        return [
+    getVisibleResults(): Array<SearchResult> {
+        const mainItems = document.querySelectorAll(
+            '#search .g:not(.mnr-c) div[data-ved] > * > * > a[data-ved]:first-of-type',
+        );
+
+        const items = [
             // Main items
-            ...Array.from(document.querySelectorAll(this.visibleResultsQuerySelector)).map(element => ({
-                container: this.findContainer(element, containers),
-                focusElement: element,
+            ...Array.from(mainItems).map(element => ({
+                container: element.closest('.g'),
+                focusElement: element.closest('a'),
             })),
-            // Suggested searches in footer and footer links
-            ...Array.from(document.querySelectorAll(this.navigationLinksAndSuggestedSearchesQuerySelector)).map(element => ({
+            // Advertisements
+            ...Array.from(document.querySelectorAll('.Krnil')).map(element => ({
+                container: element.closest('.cUezCb'),
+                focusElement: element.closest('a'),
+            })),
+            // Suggested searches in footer
+            ...Array.from(document.querySelectorAll('#botstuff a')).map(element => ({
                 container: element,
                 focusElement: element,
             })),
-        ].filter(target => target.container !== null && this.isElementVisible(target.focusElement));
+        ];
+
+        return items
+            .filter((target): target is SearchResult => {
+                return target.container !== null && this.isElementVisible(target.focusElement);
+            })
+            .sort((a, b) => this.documentOrderComparator(a.focusElement, b.focusElement));
     }
 
     hasModifierKey(e: KeyboardEvent): boolean {
@@ -92,39 +109,7 @@ export class Navigation {
             || this.inputElementIds.includes(activeElement.id);
     }
 
-    // Results without valid containers will be removed.
-    findContainer(link, containers) {
-        const container = link.closest(this.resultContainerQuerySelector);
-
-        // Only return valid, unused containers
-        if (container != null && containers.indexOf(container) < 0) {
-            containers.push(container);
-            return container;
-        }
-
-        return null;
-    }
-
-    // Add custom styling for the selected result (does not apply to footer navigation links)
-    addResultHighlight(target) {
-        // Don't proceed if the result is already highlighted or if we're dealing with footer navigation links
-        if (target.container.classList.contains('activeSearchResultContainer') || target.focusElement.closest(this.navigationContainerQuerySelector) != null) {
-            return;
-        }
-
-        target.container.classList.add('activeSearchResultContainer');
-        target.focusElement.classList.add('activeSearchResult');
-
-        const removeResultHighlight = () => {
-            target.container.classList.remove('activeSearchResultContainer');
-            target.focusElement.classList.remove('activeSearchResult');
-            target.focusElement.removeEventListener('blur', removeResultHighlight);
-        };
-
-        target.focusElement.addEventListener('blur', removeResultHighlight);
-    }
-
-    focusResult(offset) {
+    focusResult(offset: number) {
         const results = this.getVisibleResults();
 
         if (results.length <= 0) {
@@ -146,8 +131,37 @@ export class Navigation {
             window.scrollBy(0, offsetY);
         }
 
+        if (target.container.classList.contains('activeSearchResultContainer')) {
+            // Already focused, exit
+            return;
+        }
+
         target.focusElement.focus();
-        this.addResultHighlight(target);
+
+        target.container.classList.add('activeSearchResultContainer');
+        target.focusElement.classList.add('activeSearchResult');
+
+        const blurHandler = () => {
+            target.container.classList.remove('activeSearchResultContainer');
+            target.focusElement.classList.remove('activeSearchResult');
+            target.focusElement.removeEventListener('blur', blurHandler);
+        };
+
+        target.focusElement.addEventListener('blur', blurHandler);
+    }
+
+    private documentOrderComparator(a: Element, b: Element) {
+        const position = a.compareDocumentPosition(b);
+
+        /* eslint-disable no-bitwise */
+        if ((position & Node.DOCUMENT_POSITION_FOLLOWING) > 0) {
+            return -1;
+        } else if ((position & Node.DOCUMENT_POSITION_PRECEDING) > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+        /* eslint-enable no-bitwise */
     }
 }
 
