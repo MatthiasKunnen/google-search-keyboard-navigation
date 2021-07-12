@@ -26,10 +26,10 @@ export class ConfigHandler {
 
     getDefaultConfig(): Config {
         return {
-            autoSelectFirst: false,
+            autoSelectFirst: true,
             navigateWithArrows: true,
             navigateWithJK: false,
-            navigateWithTabs: true,
+            navigateWithTabs: false,
         };
     }
 
