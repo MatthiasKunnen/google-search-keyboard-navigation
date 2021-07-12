@@ -9,11 +9,11 @@ function displaySaveSuccess() {
 }
 
 const checkboxes = [
-    'navigateWithTabs',
-    'navigateWithArrows',
-    'navigateWithJK',
     'activateSearch',
     'autoselectFirst',
+    'navigateWithArrows',
+    'navigateWithJK',
+    'navigateWithTabs',
     'selectTextInSearchbox',
 ] as const;
 
