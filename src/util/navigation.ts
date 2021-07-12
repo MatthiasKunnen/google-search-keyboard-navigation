@@ -1,3 +1,45 @@
+export interface Options {
+
+    /**
+     * Activate search box. Boolean (activate when any printable key is pressed) or keyCode
+     */
+    activateSearch: boolean;
+
+    /**
+     * Automatically select the first search reult.
+     */
+    autoselectFirst: boolean;
+
+    /**
+     * Next = Down; Previous = Up
+     */
+    navigateWithArrows: boolean;
+
+    /**
+     * Next = J; Previous = K [WARNING: Conflicts with activateSearch. This takes precedence.]
+     */
+    navigateWithJK: boolean;
+
+    /**
+     * Navigate between results using:
+     * Next = Tab; Previous = Shift + TAB
+     */
+    navigateWithTabs: boolean;
+
+    /**
+     * Esc = select all text in searchbox
+     */
+    selectTextInSearchbox: boolean;
+
+    /**
+     * Style selected search result.
+     */
+    styleSelectedSimple: boolean;
+
+    styleSelectedFancy: boolean;
+}
+
+
 export class Navigation {
     focusIndex = -1;
 
@@ -9,40 +51,24 @@ export class Navigation {
     navigationContainerQuerySelector = 'div[role="navigation"] table';
     navigationLinksAndSuggestedSearchesQuerySelector = 'div[role="navigation"] table a, #botstuff a';
 
-    saveOptions(options, callback) {
-        chrome.storage.sync.set(options, callback);
+    async saveOptions(options: Options) {
+        return browser.storage.sync.set(options);
     }
 
-    loadOptions(callback) {
-        chrome.storage.sync.get(this.getDefaultOptions(), callback);
+    async loadOptions(): Promise<Options> {
+        return browser.storage.sync.get(this.getDefaultOptions()) as Promise<Options>;
     }
 
-    getDefaultOptions() {
+    getDefaultOptions(): Options {
         return {
-            // Style selected search result
-            styleSelectedSimple: true,
-
-            styleSelectedFancy: false,
-
-            // Activate search box. Boolean (activate when any printable key is pressed) or keyCode
             activateSearch: true,
-
-            // Automatically select the first search reult.
             autoselectFirst: false,
-
-            // Navigate between results using
-
-            // Next = Tab; Previous = Shift + TAB
-            navigateWithTabs: true,
-
-            // Next = Down; Previous = Up
             navigateWithArrows: true,
-
-            // Next = J; Previous = K [WARNING: Conflicts with activateSearch. This takes precedence.]
             navigateWithJK: false,
-
-            // Esc = select all text in searchbox
+            navigateWithTabs: true,
             selectTextInSearchbox: false,
+            styleSelectedFancy: false,
+            styleSelectedSimple: true,
         };
     }
 
@@ -69,7 +95,6 @@ export class Navigation {
     hasModifierKey(e) {
         return e.shiftKey || e.altKey || e.ctrlKey || e.metaKey;
     }
-
 
     /**
      * Determine if an input element is focused

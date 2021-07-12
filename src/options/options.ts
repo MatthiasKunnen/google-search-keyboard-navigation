@@ -1,55 +1,67 @@
-import {navigation} from '../util/navigation';
+import {asyncWrapper} from '../util/async';
+import {navigation, Options} from '../util/navigation';
 
 'use strict';
-var extOptions = {};
-
-function displayDialog() {
-    document.getElementById('dialog').style.marginTop = '0px';
+function displaySaveSuccess() {
+    document.getElementById('save-success').style.marginTop = '0px';
     setTimeout(function () {
-        document.getElementById('dialog').style.marginTop = '-100px';
+        document.getElementById('save-success').style.marginTop = '-100px';
     }, 5000);
 }
 
-function loadFormOptions() {
-    document.getElementById('navigateWithTabs').checked = extOptions.navigateWithTabs;
-    document.getElementById('navigateWithArrows').checked = extOptions.navigateWithArrows;
-    document.getElementById('navigateWithJK').checked = extOptions.navigateWithJK;
-    document.getElementById('styleSelectedSimple').checked = extOptions.styleSelectedSimple;
-    document.getElementById('styleSelectedFancy').checked = extOptions.styleSelectedFancy;
-    document.getElementById('activateSearch').checked = extOptions.activateSearch;
-    document.getElementById('autoselectFirst').checked = extOptions.autoselectFirst;
-    document.getElementById('selectTextInSearchbox').checked = extOptions.selectTextInSearchbox;
+const checkboxes = [
+    'navigateWithTabs',
+    'navigateWithArrows',
+    'navigateWithJK',
+    'styleSelectedSimple',
+    'styleSelectedFancy',
+    'activateSearch',
+    'autoselectFirst',
+    'selectTextInSearchbox',
+] as const;
+
+let inputs: Map<string, HTMLInputElement> | undefined;
+
+function loadInputs() {
+    if (inputs === undefined) {
+        inputs = new Map<string, HTMLInputElement>();
+        checkboxes.forEach(checkbox => {
+            inputs.set(checkbox, document.getElementById(checkbox) as HTMLInputElement);
+        });
+    }
+
+    return inputs;
 }
 
-function saveOptions() {
-    extOptions.navigateWithTabs = document.getElementById('navigateWithTabs').checked === true;
-    extOptions.navigateWithArrows = document.getElementById('navigateWithArrows').checked === true;
-    extOptions.navigateWithJK = document.getElementById('navigateWithJK').checked === true;
-    extOptions.styleSelectedSimple = document.getElementById('styleSelectedSimple').checked === true;
-    extOptions.styleSelectedFancy = document.getElementById('styleSelectedFancy').checked === true;
-    extOptions.activateSearch = document.getElementById('activateSearch').checked === true;
-    extOptions.autoselectFirst = document.getElementById('autoselectFirst').checked === true;
-    extOptions.selectTextInSearchbox = document.getElementById('selectTextInSearchbox').checked === true;
-    persistOptions();
-}
-
-function restoreDefaults() {
-    extOptions = navigation.getDefaultOptions();
-    persistOptions();
-}
-
-function persistOptions() {
-    navigation.saveOptions(extOptions, function () {
-        loadFormOptions();
-        displayDialog();
+function loadFormOptions(options: Options) {
+    loadInputs().forEach((input, key) => {
+        input.checked = options[key];
     });
 }
 
-// Load options
-navigation.loadOptions(function (options) {
-    extOptions = options;
-    loadFormOptions();
+async function saveOptions() {
+    const options: Partial<Options> = {};
 
-    document.getElementById('save').addEventListener('click', saveOptions);
-    document.getElementById('restore').addEventListener('click', restoreDefaults);
-});
+    loadInputs().forEach((input, key) => {
+        options[key] = input.checked;
+    });
+
+    await persistOptions(options as Options);
+}
+
+async function restoreDefaults() {
+    await persistOptions(navigation.getDefaultOptions());
+}
+
+async function persistOptions(options: Options) {
+    await navigation.saveOptions(options);
+    displaySaveSuccess();
+}
+
+(async () => {
+    const options = await navigation.loadOptions();
+    loadFormOptions(options);
+
+    document.getElementById('save').addEventListener('click', asyncWrapper(saveOptions));
+    document.getElementById('restore').addEventListener('click', asyncWrapper(restoreDefaults));
+})().catch(console.error);
