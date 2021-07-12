@@ -14,6 +14,10 @@ import {navigation} from '../util/navigation';
     const config = await configHandler.loadConfig();
 
     window.addEventListener('keydown', (e) => {
+        if (e.isComposing) {
+            return;
+        }
+
         const isInputOrModifierActive = eventTargetsInput(e) || eventHasModifierKey(e);
         const shouldNavigateNext =
             (config.navigateWithArrows && e.key === 'ArrowDown' && !isInputOrModifierActive)
