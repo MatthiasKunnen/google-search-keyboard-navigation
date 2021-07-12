@@ -15,7 +15,7 @@
         "start": "run-p \"start:*\"",
         "start:build": "nodemon -e '*' -w ./src -w ./node_modules -x yarn run build",
         "start:browser": "web-ext run -t firefox-desktop --chromium-profile ./.profiles/chromium --firefox-profile ./.profiles/firefox --profile-create-if-missing --keep-profile-changes --watch-file build-finished manifest.json",
-        "lint": "eslint \"src/**\"",
+        "lint": "eslint \"*.js\" \"src/**\"",
         "test": "tsc -p tsconfig.strict.json"
     },
     "dependencies": {
@@ -28,7 +28,14 @@
     },
     "devDependencies": {
         "@matthiaskunnen/eslint-config-typescript": "^3.2.0",
+        "husky": "^4.2.5",
+        "lint-staged": "^11.0.0",
         "nodemon": "^2.0.12",
         "web-ext": "^6.2.0"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "yarn run lint-staged"
+        }
     }
 }
