@@ -2,8 +2,10 @@ import {navigation} from '../util/navigation';
 
 (async () => {
     // Enforce that the script is only run on search result pages (Google Search or Google Scholar)
-    const isResultsPage = document.querySelector('html[itemtype="http://schema.org/SearchResultsPage"], .gs_r');
-    if (isResultsPage == null) {
+    const isResultsPage = document.querySelector(
+        'html[itemtype="http://schema.org/SearchResultsPage"], .gs_r',
+    );
+    if (isResultsPage === null) {
         return;
     }
 
@@ -25,32 +27,39 @@ import {navigation} from '../util/navigation';
         document.body.classList.add('useFancyHighlight');
     }
 
-    const searchbox = document.querySelector('form[role="search"] input[type="text"]:nth-of-type(1)');
+    const searchbox = document.querySelector(
+        'form[role="search"] input[type="text"]:nth-of-type(1)',
+    );
+
+    if (!(searchbox instanceof HTMLInputElement)) {
+        console.error('Search input not found!');
+        return;
+    }
 
     window.addEventListener('keydown', (e) => {
-        e = e || window.event;
-
         const isInputOrModifierActive = navigation.isInputActive() || navigation.hasModifierKey(e);
-            // From https://stackoverflow.com/questions/12467240/determine-if-javascript-e-keycode-is-a-printable-non-control-character
+        // From https://stackoverflow.com/questions/12467240
         const isPrintable = (e.keyCode > 47 && e.keyCode < 58) // number keys
                 || (e.keyCode > 64 && e.keyCode < 91) // letter keys
                 || (e.keyCode > 95 && e.keyCode < 112) // numpad keys
                 || (e.keyCode > 185 && e.keyCode < 193) // ;=,-./` (in order)
                 || (e.keyCode > 218 && e.keyCode < 223); // [\]' (in order)
 
-        const shouldNavigateNext = (options.navigateWithArrows && e.keyCode == KEYS.DOWN && !isInputOrModifierActive)
-                || (options.navigateWithTabs && e.keyCode == KEYS.TAB && !e.shiftKey)
-                || (options.navigateWithJK && e.keyCode == KEYS.J && !isInputOrModifierActive);
+        const shouldNavigateNext =
+            (options.navigateWithArrows && e.keyCode === KEYS.DOWN && !isInputOrModifierActive)
+                || (options.navigateWithTabs && e.keyCode === KEYS.TAB && !e.shiftKey)
+                || (options.navigateWithJK && e.keyCode === KEYS.J && !isInputOrModifierActive);
 
-        const shouldNavigateBack = (options.navigateWithArrows && e.keyCode == KEYS.UP && !isInputOrModifierActive)
-                || (options.navigateWithTabs && e.keyCode == KEYS.TAB && e.shiftKey)
-                || (options.navigateWithJK && e.keyCode == KEYS.K && !isInputOrModifierActive);
+        const shouldNavigateBack =
+            (options.navigateWithArrows && e.keyCode === KEYS.UP && !isInputOrModifierActive)
+                || (options.navigateWithTabs && e.keyCode === KEYS.TAB && e.shiftKey)
+                || (options.navigateWithJK && e.keyCode === KEYS.K && !isInputOrModifierActive);
 
-        const shouldActivateSearch = !isInputOrModifierActive && (
-                (options.activateSearch && isPrintable)
-                || (options.activateSearch && e.keyCode === options.activateSearch)
-            );
-        const shouldActivateSearchAndHighlightText = !isInputOrModifierActive && options.selectTextInSearchbox && e.keyCode == KEYS.ESC;
+        const shouldActivateSearch = !isInputOrModifierActive
+            && options.activateSearch && isPrintable;
+        const shouldActivateSearchAndHighlightText = !isInputOrModifierActive
+            && options.selectTextInSearchbox
+            && e.keyCode === KEYS.ESC;
 
         if (shouldNavigateNext || shouldNavigateBack) {
             e.preventDefault();
@@ -68,9 +77,9 @@ import {navigation} from '../util/navigation';
     });
 
     window.addEventListener('keyup', (e) => {
-        e = e || window.event;
-
-        if (!navigation.isInputActive() && !navigation.hasModifierKey(e) && options.navigateWithJK && e.keyCode == KEYS.SLASH) {
+        if (!navigation.isInputActive()
+            && !navigation.hasModifierKey(e)
+            && options.navigateWithJK && e.keyCode === KEYS.SLASH) {
             searchbox.value = `${searchbox.value} `;
             searchbox.focus();
         }

@@ -48,7 +48,8 @@ export class Navigation {
     visibleResultsQuerySelector = 'h3 a, #search a[data-ved][ping]';
     resultContainerQuerySelector = 'div.gs_r, div.g, li, td';
     navigationContainerQuerySelector = 'div[role="navigation"] table';
-    navigationLinksAndSuggestedSearchesQuerySelector = 'div[role="navigation"] table a, #botstuff a';
+    navigationLinksAndSuggestedSearchesQuerySelector =
+        'div[role="navigation"] table a, #botstuff a';
 
     async saveOptions(options: Options) {
         return browser.storage.sync.set(options);
@@ -71,8 +72,10 @@ export class Navigation {
         };
     }
 
-    isElementVisible(element) {
-        return element && (element.offsetWidth > 0 || element.offsetHeight > 0) && window.getComputedStyle(element, null).getPropertyValue('visibility') != 'hidden';
+    isElementVisible(element: HTMLElement) {
+        const hasOffset = element.offsetWidth > 0 || element.offsetHeight > 0;
+        const visibility = window.getComputedStyle(element, null).getPropertyValue('visibility');
+        return hasOffset && visibility !== 'hidden';
     }
 
     getVisibleResults() {
@@ -91,7 +94,7 @@ export class Navigation {
         ].filter(target => target.container !== null && this.isElementVisible(target.focusElement));
     }
 
-    hasModifierKey(e) {
+    hasModifierKey(e: KeyboardEvent): boolean {
         return e.shiftKey || e.altKey || e.ctrlKey || e.metaKey;
     }
 
@@ -100,7 +103,14 @@ export class Navigation {
      */
     isInputActive() {
         const activeElement = document.activeElement;
-        return activeElement != null && (activeElement.nodeName == 'INPUT' || this.inputElementTypes.includes(activeElement.type) || this.inputElementIds.includes(activeElement.id));
+
+        if (!(activeElement instanceof HTMLInputElement)) {
+            return false;
+        }
+
+        return activeElement.nodeName === 'INPUT'
+            || this.inputElementTypes.includes(activeElement.type)
+            || this.inputElementIds.includes(activeElement.id);
     }
 
     // -- Highlight the active result
