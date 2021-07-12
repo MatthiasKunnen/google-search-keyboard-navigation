@@ -13,7 +13,7 @@
         ],
         "module": "ESNext",
         "moduleResolution": "node",
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "outDir": "./out-tsc",
         "sourceMap": true,
         "strict": true,

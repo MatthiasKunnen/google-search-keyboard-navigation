@@ -16,11 +16,13 @@ const checkboxes = [
     'navigateWithTabs',
 ] as const;
 
-let inputs: Map<string, HTMLInputElement> | undefined;
+type Inputs = typeof checkboxes[number];
+
+let inputs: Map<Inputs, HTMLInputElement> | undefined;
 
 function loadInputs() {
     if (inputs === undefined) {
-        inputs = new Map<string, HTMLInputElement>();
+        inputs = new Map<Inputs, HTMLInputElement>();
         checkboxes.forEach(checkbox => {
             inputs!.set(checkbox, document.getElementById(checkbox) as HTMLInputElement);
         });
