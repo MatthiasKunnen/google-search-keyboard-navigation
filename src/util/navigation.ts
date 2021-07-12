@@ -30,9 +30,6 @@ interface SearchResult {
 export class Navigation {
     focusIndex = -1;
 
-    inputElementIds = ['cwtltblr'];
-    inputElementTypes = ['text', 'number', 'textarea', 'T'];
-
     async saveOptions(options: Options) {
         return browser.storage.sync.set(options);
     }
@@ -88,25 +85,6 @@ export class Navigation {
                 return target.container !== null && this.isElementVisible(target.focusElement);
             })
             .sort((a, b) => this.documentOrderComparator(a.focusElement, b.focusElement));
-    }
-
-    hasModifierKey(e: KeyboardEvent): boolean {
-        return e.shiftKey || e.altKey || e.ctrlKey || e.metaKey;
-    }
-
-    /**
-     * Determine if an input element is focused
-     */
-    isInputActive() {
-        const activeElement = document.activeElement;
-
-        if (!(activeElement instanceof HTMLInputElement)) {
-            return false;
-        }
-
-        return activeElement.nodeName === 'INPUT'
-            || this.inputElementTypes.includes(activeElement.type)
-            || this.inputElementIds.includes(activeElement.id);
     }
 
     focusResult(offset: number) {

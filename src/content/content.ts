@@ -1,3 +1,4 @@
+import {eventHasModifierKey, eventTargetsInput} from '../util/event.utils';
 import {navigation} from '../util/navigation';
 
 (async () => {
@@ -13,7 +14,7 @@ import {navigation} from '../util/navigation';
     const options = await navigation.loadOptions();
 
     window.addEventListener('keydown', (e) => {
-        const isInputOrModifierActive = navigation.isInputActive() || navigation.hasModifierKey(e);
+        const isInputOrModifierActive = eventTargetsInput(e) || eventHasModifierKey(e);
         const shouldNavigateNext =
             (options.navigateWithArrows && e.keyCode === KEYS.DOWN && !isInputOrModifierActive)
                 || (options.navigateWithTabs && e.keyCode === KEYS.TAB && !e.shiftKey)
