@@ -14,18 +14,6 @@ import {navigation} from '../util/navigation';
 
     // Load options
     const options = await navigation.loadOptions();
-    // Styling is present
-    if (options.styleSelectedSimple || options.styleSelectedFancy) {
-        document.body.classList.add('useHighlight');
-    }
-    // Add simple highlight
-    if (options.styleSelectedSimple) {
-        document.body.classList.add('useSimpleHighlight');
-    }
-    // Add fancy highlight
-    if (options.styleSelectedFancy) {
-        document.body.classList.add('useFancyHighlight');
-    }
 
     const searchbox = document.querySelector(
         'form[role="search"] input[type="text"]:nth-of-type(1)',

@@ -12,8 +12,6 @@ const checkboxes = [
     'navigateWithTabs',
     'navigateWithArrows',
     'navigateWithJK',
-    'styleSelectedSimple',
-    'styleSelectedFancy',
     'activateSearch',
     'autoselectFirst',
     'selectTextInSearchbox',

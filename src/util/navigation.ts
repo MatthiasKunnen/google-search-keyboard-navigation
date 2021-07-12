@@ -31,12 +31,6 @@ export interface Options {
      */
     selectTextInSearchbox: boolean;
 
-    /**
-     * Style selected search result.
-     */
-    styleSelectedSimple: boolean;
-
-    styleSelectedFancy: boolean;
 }
 
 export class Navigation {
@@ -67,8 +61,6 @@ export class Navigation {
             navigateWithJK: false,
             navigateWithTabs: true,
             selectTextInSearchbox: false,
-            styleSelectedFancy: false,
-            styleSelectedSimple: true,
         };
     }
 
