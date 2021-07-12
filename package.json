@@ -12,6 +12,7 @@
         "build:content": "parcel build \"src/content/{content.ts,*.scss}\"",
         "build:options": "parcel build --public-url /dist/ \"src/options/options.html\"",
         "build:finished": "date --iso-8601=seconds > build-finished",
+        "serve:options": "parcel serve \"src/options/options.html\"",
         "start": "run-p \"start:*\"",
         "start:build": "nodemon -e '*' -w ./src -w ./node_modules -x yarn run build",
         "start:browser": "web-ext run -t firefox-desktop --chromium-profile ./.profiles/chromium --firefox-profile ./.profiles/firefox --profile-create-if-missing --keep-profile-changes --watch-file build-finished manifest.json",

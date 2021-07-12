@@ -1,0 +1,66 @@
+@import 'normalize';
+@import 'variables';
+
+html, body {
+    background-color: $background-dark;
+    color: rgba(255, 255, 255, 0.7);
+
+    @media (prefers-color-scheme: light) {
+        background-color: #fafafa;
+        color: rgba(0, 0, 0, .7);
+    }
+}
+
+body {
+    padding: 16px 16px 32px;
+}
+
+.fade-out {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 400ms, opacity 400ms;
+}
+
+.fade-in {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 0s, opacity 200ms;
+}
+
+.button-outline {
+    background-color: transparent;
+    border-radius: 4px;
+    border: 1px solid hsla(0, 0%, 100%, .12);
+    color: white;
+    font-weight: 500;
+    line-height: 36px;
+    min-width: 64px;
+    outline: none;
+    padding: 0 16px;
+    transition: all 200ms linear;
+
+    &:hover {
+        background-color: lighten($background-dark, 5);
+    }
+
+    &.button-primary {
+        background-color: $primary;
+
+        &:hover {
+            background-color: lighten($primary, 5);
+        }
+    }
+
+    &:not(.button-primary) {
+
+        @media (prefers-color-scheme: light) {
+            background-color: white;
+            border-color: rgba(0, 0, 0, .12);
+            color: rgba(0, 0, 0, .7);
+
+            &:hover {
+                background-color: darken(white, 5);
+            }
+        }
+    }
+}

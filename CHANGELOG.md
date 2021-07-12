@@ -16,3 +16,4 @@ First version after fork. The following changes have been made:
 * Removed features that are provided by Google Search
 * Removed option to add an arrow to the search result title  
   The arrow works on text only and not on the various richer results in Google Search.
+* Provide dark theme for preferences

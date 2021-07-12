@@ -2,11 +2,14 @@ import {asyncWrapper} from '../util/async';
 import {Config, configHandler} from '../util/config';
 
 function displaySaveSuccess() {
-    const successNotification = document.getElementById('save-success');
-    successNotification!.style.marginTop = '0px';
+    const successNotification = document.getElementById('save-success')!;
+    successNotification.classList.remove('fade-out');
+    successNotification.classList.add('fade-in');
+
     setTimeout(() => {
-        successNotification!.style.marginTop = '-100px';
-    }, 5000);
+        successNotification.classList.remove('fade-in');
+        successNotification.classList.add('fade-out');
+    }, 4000);
 }
 
 const checkboxes = [
@@ -48,14 +51,9 @@ async function persistForm() {
     displaySaveSuccess();
 }
 
-async function restoreDefaults() {
-    loadForm(configHandler.getDefaultConfig());
-}
-
 (async () => {
     const config = await configHandler.loadConfig();
     loadForm(config);
 
     document.getElementById('save')!.addEventListener('click', asyncWrapper(persistForm));
-    document.getElementById('restore')!.addEventListener('click', asyncWrapper(restoreDefaults));
 })().catch(console.error);

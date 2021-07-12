@@ -1,45 +1,31 @@
-body {
-    margin: 0 auto 10px;
-    width: 500px;
-    padding: 10px 20px 20px;
-    font-size: 12px;
-}
+@import '../scss/general';
+@import '../scss/variables';
 
-#actionContainer {
-    font-size: 14px;
-    text-align: center;
-}
-
-#actionContainer button {
-    cursor: pointer;
-}
-
-tr td:nth-child(2) {
-    font-size: smaller;
-    padding-left: 20px;
-    color: #666;
-}
-
-label {
+input[type="checkbox"] + label {
     padding-left: 4px;
 }
 
-#otherFeatures > div {
-    margin-bottom: 4px;
+#navigation-options {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 16px;
+
+    .description {
+        opacity: 0.7;
+    }
+}
+
+#other-features {
+
+    .feature {
+        margin-bottom: 1em;
+    }
+}
+
+#actions {
+    padding: 1em 0;
 }
 
 #save-success {
-    text-align: center;
-    margin-top: -200px;
-    transition: all 1s ease-in-out;
-    background-color: #33ca5a;
-    color: #fff;
-    position: fixed;
-    padding: 12px;
-    top: 15px;
-    right: 15px;
-}
-
-td {
-    vertical-align: top;
+    color: $success;
 }

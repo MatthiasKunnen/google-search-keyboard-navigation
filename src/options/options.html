@@ -1,55 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Options | Google search keyboard navigation</title>
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="options.scss">
 </head>
 <body>
-    <h2>Navigate Between Search Results Using</h2>
-    <table border="0" cellspacing="0" cellspacing="2">
-        <tr>
-            <td>
-                <input type="checkbox" id="navigateWithTabs"/>
-                <label for="navigateWithTabs">TAB Key</label>
-            </td>
-            <td>
-                (<strong>TAB</strong> = next result; <strong>Shift + TAB</strong> = previous result)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="checkbox" id="navigateWithArrows"/><label for="navigateWithArrows">
-                Arrow Keys</label>
-            </td>
-            <td>
-                (<strong>Down</strong> = next result; <strong>Up</strong> = previous result)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="checkbox" id="navigateWithJK"/>
-                <label for="navigateWithJK">Vim Style</label>
-            </td>
-            <td>
-                (<strong>J</strong> = next result; <strong>K</strong> = previous result)
-            </td>
-        </tr>
-    </table>
-    <br/>
-    <h2>Other Features</h2>
-    <div id="otherFeatures">
-        <div>
+    <h2>Navigation</h2>
+    <div id="navigation-options">
+        <div class="option">
+            <input type="checkbox" id="navigateWithTabs"/>
+            <label for="navigateWithTabs">TAB Key</label>
+        </div>
+        <div class="description">
+            (<strong>TAB</strong> = next result; <strong>Shift + TAB</strong> = previous result)
+        </div>
+        <div class="option">
+            <input type="checkbox" id="navigateWithArrows"/><label for="navigateWithArrows">
+            Arrow Keys</label>
+        </div>
+        <div class="description">
+            (<strong>Down</strong> = next result; <strong>Up</strong> = previous result)
+        </div>
+        <div class="option">
+            <input type="checkbox" id="navigateWithJK"/>
+            <label for="navigateWithJK">Vim Style</label>
+        </div>
+        <div class="description">
+            (<strong>J</strong> = next result; <strong>K</strong> = previous result)
+        </div>
+    </div>
+    <h2>Behavior</h2>
+    <div id="other-features">
+        <div class="feature">
             <input type="checkbox" id="autoSelectFirst">
             <label for="autoSelectFirst">Automatically select the first search result</label>
         </div>
     </div>
-    <br/><br/>
-    <div id="actionContainer">
-        <button id="save">Save Settings</button>
-        <button id="restore">Restore Defaults</button>
+    <div id="actions">
+        <button type="button" id="save" class="button-outline button-primary">Save</button>
     </div>
-    <div id="save-success">Your settings have been saved!</div>
+    <div id="save-success" class="fade-out">Your settings have been saved!</div>
     <script type="module" src="options.ts"></script>
 </body>
 </html>
