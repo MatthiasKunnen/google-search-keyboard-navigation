@@ -2,9 +2,10 @@ import {asyncWrapper} from '../util/async';
 import {navigation, Options} from '../util/navigation';
 
 function displaySaveSuccess() {
-    document.getElementById('save-success').style.marginTop = '0px';
+    const successNotification = document.getElementById('save-success');
+    successNotification!.style.marginTop = '0px';
     setTimeout(() => {
-        document.getElementById('save-success').style.marginTop = '-100px';
+        successNotification!.style.marginTop = '-100px';
     }, 5000);
 }
 
@@ -21,7 +22,7 @@ function loadInputs() {
     if (inputs === undefined) {
         inputs = new Map<string, HTMLInputElement>();
         checkboxes.forEach(checkbox => {
-            inputs.set(checkbox, document.getElementById(checkbox) as HTMLInputElement);
+            inputs!.set(checkbox, document.getElementById(checkbox) as HTMLInputElement);
         });
     }
 
@@ -57,6 +58,6 @@ async function persistOptions(options: Options) {
     const options = await navigation.loadOptions();
     loadFormOptions(options);
 
-    document.getElementById('save').addEventListener('click', asyncWrapper(saveOptions));
-    document.getElementById('restore').addEventListener('click', asyncWrapper(restoreDefaults));
+    document.getElementById('save')!.addEventListener('click', asyncWrapper(saveOptions));
+    document.getElementById('restore')!.addEventListener('click', asyncWrapper(restoreDefaults));
 })().catch(console.error);
