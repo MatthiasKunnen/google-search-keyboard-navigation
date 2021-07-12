@@ -9,7 +9,6 @@ function displaySaveSuccess() {
 }
 
 const checkboxes = [
-    'activateSearch',
     'autoselectFirst',
     'navigateWithArrows',
     'navigateWithJK',

@@ -26,13 +26,6 @@ import {navigation} from '../util/navigation';
 
     window.addEventListener('keydown', (e) => {
         const isInputOrModifierActive = navigation.isInputActive() || navigation.hasModifierKey(e);
-        // From https://stackoverflow.com/questions/12467240
-        const isPrintable = (e.keyCode > 47 && e.keyCode < 58) // number keys
-                || (e.keyCode > 64 && e.keyCode < 91) // letter keys
-                || (e.keyCode > 95 && e.keyCode < 112) // numpad keys
-                || (e.keyCode > 185 && e.keyCode < 193) // ;=,-./` (in order)
-                || (e.keyCode > 218 && e.keyCode < 223); // [\]' (in order)
-
         const shouldNavigateNext =
             (options.navigateWithArrows && e.keyCode === KEYS.DOWN && !isInputOrModifierActive)
                 || (options.navigateWithTabs && e.keyCode === KEYS.TAB && !e.shiftKey)
@@ -43,8 +36,6 @@ import {navigation} from '../util/navigation';
                 || (options.navigateWithTabs && e.keyCode === KEYS.TAB && e.shiftKey)
                 || (options.navigateWithJK && e.keyCode === KEYS.K && !isInputOrModifierActive);
 
-        const shouldActivateSearch = !isInputOrModifierActive
-            && options.activateSearch && isPrintable;
         const shouldActivateSearchAndHighlightText = !isInputOrModifierActive
             && options.selectTextInSearchbox
             && e.keyCode === KEYS.ESC;
@@ -53,22 +44,9 @@ import {navigation} from '../util/navigation';
             e.preventDefault();
             e.stopPropagation();
             navigation.focusResult(shouldNavigateNext ? 1 : -1);
-        } else if (shouldActivateSearch) {
-            // Otherwise, force caret to end of text and focus the search box
-            searchbox.value = `${searchbox.value} `;
-            searchbox.focus();
         } else if (shouldActivateSearchAndHighlightText) {
             window.scrollTo(0, 0);
             searchbox.select();
-            searchbox.focus();
-        }
-    });
-
-    window.addEventListener('keyup', (e) => {
-        if (!navigation.isInputActive()
-            && !navigation.hasModifierKey(e)
-            && options.navigateWithJK && e.keyCode === KEYS.SLASH) {
-            searchbox.value = `${searchbox.value} `;
             searchbox.focus();
         }
     });

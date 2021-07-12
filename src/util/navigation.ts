@@ -1,11 +1,6 @@
 export interface Options {
 
     /**
-     * Activate search box. Boolean (activate when any printable key is pressed) or keyCode
-     */
-    activateSearch: boolean;
-
-    /**
      * Automatically select the first search reult.
      */
     autoselectFirst: boolean;
@@ -16,7 +11,7 @@ export interface Options {
     navigateWithArrows: boolean;
 
     /**
-     * Next = J; Previous = K [WARNING: Conflicts with activateSearch. This takes precedence.]
+     * Next = J; Previous = K
      */
     navigateWithJK: boolean;
 
@@ -55,7 +50,6 @@ export class Navigation {
 
     getDefaultOptions(): Options {
         return {
-            activateSearch: true,
             autoselectFirst: false,
             navigateWithArrows: true,
             navigateWithJK: false,
