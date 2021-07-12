@@ -1,6 +1,10 @@
+$highlight-color: #2586fc;
+$highlight-border-size: 3px;
+$highlight-border: $highlight-border-size solid $highlight-color !important;
+
 .activeSearchResultContainer {
-    border-left: 3px solid #2586fc !important;
-    transform: translate(-3px, 0) !important;
+    border-left: $highlight-border;
+    transform: translate(-$highlight-border-size, 0) !important;
 
     a {
         outline: 0;
@@ -11,7 +15,7 @@
     }
 
     img {
-        border-top: 3px solid #2586fc !important;
+        border-top: $highlight-border;
     }
 }
 
