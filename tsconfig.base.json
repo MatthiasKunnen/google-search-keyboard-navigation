@@ -17,7 +17,6 @@
         "outDir": "./out-tsc",
         "sourceMap": true,
         "strict": true,
-        "strictPropertyInitialization": false,
         "target": "es2019"
     }
 }
