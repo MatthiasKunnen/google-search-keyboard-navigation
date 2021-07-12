@@ -3,7 +3,7 @@ import {navigation, Options} from '../util/navigation';
 
 function displaySaveSuccess() {
     document.getElementById('save-success').style.marginTop = '0px';
-    setTimeout(function () {
+    setTimeout(() => {
         document.getElementById('save-success').style.marginTop = '-100px';
     }, 5000);
 }

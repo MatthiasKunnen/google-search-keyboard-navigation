@@ -39,7 +39,6 @@ export interface Options {
     styleSelectedFancy: boolean;
 }
 
-
 export class Navigation {
     focusIndex = -1;
 
@@ -77,7 +76,7 @@ export class Navigation {
     }
 
     getVisibleResults() {
-        var containers = [];
+        const containers = [];
         return [
             // Main items
             ...Array.from(document.querySelectorAll(this.visibleResultsQuerySelector)).map(element => ({
@@ -100,14 +99,14 @@ export class Navigation {
      * Determine if an input element is focused
      */
     isInputActive() {
-        var activeElement = document.activeElement;
+        const activeElement = document.activeElement;
         return activeElement != null && (activeElement.nodeName == 'INPUT' || this.inputElementTypes.includes(activeElement.type) || this.inputElementIds.includes(activeElement.id));
     }
 
     // -- Highlight the active result
     // Results without valid containers will be removed.
     findContainer(link, containers) {
-        var container = link.closest(this.resultContainerQuerySelector);
+        const container = link.closest(this.resultContainerQuerySelector);
 
         // Only return valid, unused containers
         if (container != null && containers.indexOf(container) < 0) {
@@ -138,7 +137,7 @@ export class Navigation {
     }
 
     focusResult(offset) {
-        var results = this.getVisibleResults();
+        const results = this.getVisibleResults();
 
         if (results.length <= 0) {
             console.warn('No results found. Extension may need to be updated.');
@@ -150,11 +149,11 @@ export class Navigation {
         this.focusIndex = Math.min(this.focusIndex, results.length - 1);
         this.focusIndex = Math.max(this.focusIndex, 0);
 
-        var target = results[this.focusIndex];
+        const target = results[this.focusIndex];
 
         // Scroll the entire result container into view if it's not already.
-        var rect = target.container.getBoundingClientRect();
-        var offsetY = rect.bottom - window.innerHeight;
+        const rect = target.container.getBoundingClientRect();
+        const offsetY = rect.bottom - window.innerHeight;
         if (offsetY > 0) {
             window.scrollBy(0, offsetY);
         }
