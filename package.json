@@ -16,7 +16,8 @@
         "start:build": "nodemon -e '*' -w ./src -w ./node_modules -x yarn run build",
         "start:browser": "web-ext run -t firefox-desktop --chromium-profile ./.profiles/chromium --firefox-profile ./.profiles/firefox --profile-create-if-missing --keep-profile-changes --watch-file build-finished manifest.json",
         "lint": "eslint \"*.js\" \"src/**\"",
-        "test": "tsc -p tsconfig.strict.json"
+        "test": "run-p \"test:*\"",
+        "test:ts": "tsc -p tsconfig.strict.json"
     },
     "dependencies": {
         "@parcel/transformer-sass": "2.0.0-beta.3.1",
