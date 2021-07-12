@@ -1,0 +1,15 @@
+on: [pull_request, push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: yarn install
+      run: yarn install --frozen-lockfile
+    - name: Build
+      run: yarn run build
+    - name: Lint
+      run: yarn run lint
+    - name: Test TypeScript
+      run: yarn run test
