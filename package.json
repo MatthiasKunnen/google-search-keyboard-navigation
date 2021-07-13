@@ -12,6 +12,8 @@
         "build:content": "parcel build \"src/content/{content.ts,*.scss}\"",
         "build:options": "parcel build --public-url /dist/ \"src/options/options.html\"",
         "build:finished": "date --iso-8601=seconds > build-finished",
+        "pack": "./pack.sh",
+        "postversion": "cat <<< $(jq --indent 4 \".version = $(jq '.version' package.json)\" manifest.json)> manifest.json",
         "serve:options": "parcel serve \"src/options/options.html\"",
         "start": "run-p \"start:*\"",
         "start:build": "nodemon -e '*' -w ./src -w ./node_modules -x yarn run build",
