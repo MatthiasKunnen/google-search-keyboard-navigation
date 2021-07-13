@@ -4,7 +4,7 @@ interface SearchResult {
 }
 
 export class Navigation {
-    focusIndex = -1;
+    private focusIndex = -1;
 
     focusResult(offset: number) {
         const results = this.getVisibleResults();
