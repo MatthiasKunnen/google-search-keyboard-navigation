@@ -14,10 +14,12 @@ Requirements:
 1. `yarn run pack` (optional)  
    Packs the build and source code into a zip file used for addon submission. Destination: [`./artifacts`](./artifacts).
 
+For development instructions, see [`DEVELOPING.md`](./DEVELOPING.md).
+
 ## Firefox Extension
 <https://addons.mozilla.org/en-US/firefox/addon/google-search-keyboard-navigation/>
 
-# Forked
+## Forked
 This extension is forked from <https://github.com/jchafik/google-search-shortcuts> with the following intent:
 - Quicker updates
 - Firefox focused
