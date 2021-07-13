@@ -21,19 +21,16 @@ export class Navigation {
 
         const target = results[this.focusIndex];
 
-        // Scroll the entire result container into view if it's not already.
-        const rect = target.container.getBoundingClientRect();
-        const offsetY = rect.bottom - window.innerHeight;
-        if (offsetY > 0) {
-            window.scrollBy(0, offsetY);
-        }
+        this.scrollIntoView(target);
 
         if (target.container.classList.contains('activeSearchResultContainer')) {
             // Already focused, exit
             return;
         }
 
-        target.focusElement.focus();
+        target.focusElement.focus({
+            preventScroll: true,
+        });
 
         target.container.classList.add('activeSearchResultContainer');
         target.focusElement.classList.add('activeSearchResult');
@@ -99,6 +96,18 @@ export class Navigation {
             return 0;
         }
         /* eslint-enable no-bitwise */
+    }
+
+    /**
+     * Scroll the entire result container into view if it's not already.
+     */
+    private scrollIntoView(result: SearchResult) {
+        const rect = result.container.getBoundingClientRect();
+        const offsetY = rect.bottom - window.innerHeight;
+
+        if (offsetY > 0 || rect.top < 0) {
+            result.focusElement.scrollIntoView({behavior: 'smooth'});
+        }
     }
 }
 
