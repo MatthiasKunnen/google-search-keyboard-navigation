@@ -18,6 +18,7 @@
         "start:browser": "web-ext run -t firefox-desktop --chromium-profile ./.profiles/chromium --firefox-profile ./.profiles/firefox --profile-create-if-missing --keep-profile-changes --watch-file build-finished manifest.json",
         "lint": "eslint \"*.js\" \"src/**\"",
         "test": "run-p \"test:*\"",
+        "test:ext": "web-ext lint",
         "test:ts": "tsc -p tsconfig.strict.json",
         "web-ext": "web-ext"
     },
