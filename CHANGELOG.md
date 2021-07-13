@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.0](https://github.com/MatthiasKunnen/google-search-keyboard-navigation/compare/v1.0.0...edb7b18978dc9fb5654309cd1d547471ed80fb8a) (2021-07-??)
+## [1.0.0](https://github.com/MatthiasKunnen/google-search-keyboard-navigation/compare/v1.0.0...edb7b18978dc9fb5654309cd1d547471ed80fb8a) (2021-07-13)
 
 First version after fork. The following changes have been made:
 * Selectors have been updated. They should now work again on Firefox.
