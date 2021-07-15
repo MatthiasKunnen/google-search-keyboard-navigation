@@ -17,7 +17,7 @@ Requirements:
 For development instructions, see [`DEVELOPING.md`](./DEVELOPING.md).
 
 ## Firefox Extension
-<https://addons.mozilla.org/en-US/firefox/addon/google-search-keyboard-navigation/>
+<https://addons.mozilla.org/en-US/firefox/addon/google-search-keyboard-nav/>
 
 ## Forked
 This extension is forked from <https://github.com/jchafik/google-search-shortcuts> with the following intent:
