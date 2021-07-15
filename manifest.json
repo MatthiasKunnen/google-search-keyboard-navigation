@@ -7,8 +7,8 @@
             "strict_min_version": "57.0"
         }
     },
-    "name": "Google search keyboard navigation",
-    "description": "Adds keyboard shortcuts/hotkeys to Google search results",
+    "name": "Google Search keyboard navigation",
+    "description": "Increase your search efficiency by ignoring your mouse and use either TAB, arrow keys or Vim style j/k to focus Google Search results.",
     "version": "1.0.1",
     "icons": {
         "16": "img/icon16.png",
@@ -19,7 +19,7 @@
     "author": "Matthias Kunnen",
     "developer": {
         "name": "Matthias Kunnen",
-        "url": "https://github.com/MatthiasKunnen/"
+        "url": "https://github.com/MatthiasKunnen/google-search-keyboard-navigation"
     },
     "options_ui": {
         "chrome_style": true,
