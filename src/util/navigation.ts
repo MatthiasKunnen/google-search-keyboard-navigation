@@ -5,6 +5,7 @@ interface SearchResult {
 
 export class Navigation {
     private focusIndex = -1;
+    private focusedResult?: SearchResult;
 
     focusResult(offset: number) {
         const results = this.getVisibleResults();
@@ -23,25 +24,18 @@ export class Navigation {
 
         this.scrollIntoView(target);
 
-        if (target.container.classList.contains('activeSearchResultContainer')) {
-            // Already focused, exit
-            return;
+        if (this.focusedResult !== undefined) {
+            this.focusedResult.container.classList.remove('activeSearchResultContainer');
+            this.focusedResult.focusElement.classList.remove('activeSearchResult');
         }
 
         target.focusElement.focus({
             preventScroll: true,
         });
 
+        this.focusedResult = target;
         target.container.classList.add('activeSearchResultContainer');
         target.focusElement.classList.add('activeSearchResult');
-
-        const blurHandler = () => {
-            target.container.classList.remove('activeSearchResultContainer');
-            target.focusElement.classList.remove('activeSearchResult');
-            target.focusElement.removeEventListener('blur', blurHandler);
-        };
-
-        target.focusElement.addEventListener('blur', blurHandler);
     }
 
     private getVisibleResults(): Array<SearchResult> {
