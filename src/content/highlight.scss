@@ -14,8 +14,11 @@ $highlight-border: $highlight-border-size solid $highlight-color !important;
         position: relative;
     }
 
-    img {
-        border-top: $highlight-border;
+    &:not(.mnr-c) {
+
+        img {
+            border-top: $highlight-border;
+        }
     }
 }
 
@@ -34,4 +37,9 @@ div[role="navigation"] table a:focus {
 
 a {
     scroll-margin-top: 70px;
+}
+
+#botstuff .activeSearchResultContainer.EASEnb {
+    border-left: none !important;
+    transform: none !important;
 }

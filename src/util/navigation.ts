@@ -49,6 +49,24 @@ export class Navigation {
                 container: element.closest('.g'),
                 focusElement: element.closest('a'),
             })),
+            // E.g. Normal result with Twitter · 3 days ago in bottom
+            ...Array.from(document.querySelectorAll('#search .g.eejeod'))
+                .map(element => ({
+                    container: element,
+                    focusElement: element.querySelector('a'),
+                })),
+            // Carousel
+            ...Array.from(document.querySelectorAll('#search .g div[data-ved].mR2gOd'))
+                .map(element => ({
+                    container: element.closest('.g'),
+                    focusElement: element.closest('g-section-with-header')?.querySelector('a'),
+                })),
+            // Carousel
+            ...Array.from(document.querySelectorAll('#search .mnr-c g-scrolling-carousel'))
+                .map(element => ({
+                    container: element.closest('.mnr-c'),
+                    focusElement: element.querySelector('a'),
+                })),
             // Advertisements
             ...Array.from(document.querySelectorAll('.Krnil')).map(element => ({
                 container: element.closest('.cUezCb'),
@@ -63,7 +81,9 @@ export class Navigation {
 
         return items
             .filter((target): target is SearchResult => {
-                return target.container !== null && this.isElementVisible(target.focusElement);
+                return target.container !== null
+                    && target.focusElement != null
+                    && this.isElementVisible(target.focusElement);
             })
             .sort((a, b) => this.documentOrderComparator(a.focusElement, b.focusElement));
     }
