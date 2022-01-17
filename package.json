@@ -1,6 +1,6 @@
 {
     "name": "google-search-keyboard-navigation",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Adds keyboard navigation to Google Search",
     "repository": "git@github.com:MatthiasKunnen/google-search-keyboard-navigation.git",
     "author": "Matthias Kunnen <matthias.kunnen@gmail.com>",
