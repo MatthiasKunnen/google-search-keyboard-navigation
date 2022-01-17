@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.2](https://github.com/MatthiasKunnen/google-search-keyboard-navigation/compare/v1.0.1...v1.0.2) (2021-10-30)
+
+- Fix permanent highlight on first search result when modal is shown
+- Improve extension name, description, and developer URL
+- Update selectors
+
 ## [1.0.1](https://github.com/MatthiasKunnen/google-search-keyboard-navigation/compare/v1.0.0...v1.0.1) (2021-07-13)
 1.0.0 was incorrectly submitted.
 
