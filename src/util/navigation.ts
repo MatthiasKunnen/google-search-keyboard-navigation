@@ -39,22 +39,21 @@ export class Navigation {
     }
 
     private getVisibleResults(): Array<SearchResult> {
-        const mainItems = document.querySelectorAll(
-            '#search .g:not(.mnr-c) div[data-ved] > * > * > a[data-ved]:first-of-type',
-        );
-
         const items = [
             // Main items
-            ...Array.from(mainItems).map(element => ({
-                container: element.closest('.g'),
-                focusElement: element.closest('a'),
+            ...Array.from(document.querySelectorAll(`
+                #search div.g[data-hveid],
+                #search div[data-hveid] > .g > *
+            `)).map(element => ({
+                container: element,
+                focusElement: element.querySelector('a'),
             })),
-            // E.g. Normal result with Twitter · 3 days ago in bottom
-            ...Array.from(document.querySelectorAll('#search .g.eejeod'))
-                .map(element => ({
-                    container: element,
-                    focusElement: element.querySelector('a'),
-                })),
+            ...Array.from(document.querySelectorAll(`
+                #search div.g:not([data-hveid]) > [data-hveid]
+            `)).map(element => ({
+                container: element.closest('.g'),
+                focusElement: element.querySelector('a'),
+            })),
             // Carousel
             ...Array.from(document.querySelectorAll('#search .g div[data-ved].mR2gOd'))
                 .map(element => ({
