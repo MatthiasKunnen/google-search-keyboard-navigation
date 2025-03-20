@@ -42,22 +42,23 @@ export class Navigation {
         const items = [
             // Main items
             ...Array.from(document.querySelectorAll(`
-                #search div.g[data-hveid],
-                #search div[data-hveid] > .g > *
+                #search div.wHYlTd[data-hveid],
+                #search div.eKjLze [data-hveid],
+                #search div.BYM4Nd > table > tbody > tr > td
             `)).map(element => ({
                 container: element,
                 focusElement: element.querySelector('a'),
             })),
             ...Array.from(document.querySelectorAll(`
-                #search div.g:not([data-hveid]) > [data-hveid]
+                #search div.wHYlTd:not([data-hveid]) > [data-hveid]
             `)).map(element => ({
                 container: element.closest('.g'),
                 focusElement: element.querySelector('a'),
             })),
             // Carousel
-            ...Array.from(document.querySelectorAll('#search .g div[data-ved].mR2gOd'))
+            ...Array.from(document.querySelectorAll('#search .wHYlTd div[data-ved].mR2gOd'))
                 .map(element => ({
-                    container: element.closest('.g'),
+                    container: element.closest('.wHYlTd'),
                     focusElement: element.closest('g-section-with-header')?.querySelector('a'),
                 })),
             // Carousel
@@ -72,7 +73,14 @@ export class Navigation {
                 focusElement: element.closest('a'),
             })),
             // Suggested searches in footer
-            ...Array.from(document.querySelectorAll('#botstuff a')).map(element => ({
+            ...Array.from(document.querySelectorAll('.EIaa9b .qR29te a')).map(element => ({
+                container: element,
+                focusElement: element,
+            })),
+            // Next page
+            ...Array.from(document.querySelectorAll(`
+                #botstuff [role=navigation] a
+            `)).map(element => ({
                 container: element,
                 focusElement: element,
             })),
