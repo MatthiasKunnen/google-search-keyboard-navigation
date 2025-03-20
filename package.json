@@ -43,5 +43,8 @@
         "hooks": {
             "pre-commit": "yarn run lint-staged"
         }
+    },
+    "engines": {
+        "node": "^14.0.0"
     }
 }
