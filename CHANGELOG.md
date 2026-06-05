@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.5](https://github.com/MatthiasKunnen/google-search-keyboard-navigation/compare/v1.0.4...v1.0.5) (2026-06-05)
+
+- Update selectors to address entry with subitems
+  Fixes <https://github.com/MatthiasKunnen/google-search-keyboard-navigation/issues/6>.
+
 ## [1.0.4](https://github.com/MatthiasKunnen/google-search-keyboard-navigation/compare/v1.0.3...v1.0.4) (2025-03-20)
 
 Update selectors
