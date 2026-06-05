@@ -49,6 +49,14 @@ export class Navigation {
                 container: element,
                 focusElement: element.querySelector('a'),
             })),
+            // Main item with featured subitems
+            ...Array.from(document.querySelectorAll(`
+                #search div.k7vlx [data-hveid],
+                #search div.kbSIic > table > tbody > tr > td
+            `)).map(element => ({
+                container: element,
+                focusElement: element.querySelector('a'),
+            })),
             ...Array.from(document.querySelectorAll(`
                 #search div.wHYlTd:not([data-hveid]) > [data-hveid]
             `)).map(element => ({
