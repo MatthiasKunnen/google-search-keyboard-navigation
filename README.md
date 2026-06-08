@@ -5,7 +5,7 @@ This extension adds keyboard functionality to Google Search.
 
 Requirements:
  - yarn@^1.22.5 
- - node@>=12 <= 14 (later versions should also work)
+ - node@>=14
 
 **Build steps:**  
 
